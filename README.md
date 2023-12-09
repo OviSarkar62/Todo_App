@@ -13,8 +13,7 @@ The ToDo Application is a simple yet powerful task management tool designed to h
 ## Stack
 
 - MySQL - MySQL database for storing data.
-- Laravel - Backend framework for building RESTful APIs.
-- Vite - Frontend tool for building fast web applications.
+- Laravel - Backend framework for building CRUD Operations.
 - PHP - Scripting language.
 
 ## Installation
