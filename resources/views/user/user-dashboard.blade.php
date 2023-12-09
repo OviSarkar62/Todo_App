@@ -10,11 +10,14 @@
             @if (Session::has('error'))
                 <div class="alert alert-danger">{{ Session::get('error') }}</div>
             @endif
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5>Hello, {{ auth()->user()->name }}, manage your todos</h5>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-white d-flex justify-content-center align-items-center" style="background-color: #232D3F; color: #fff;">
+                        <h5>Welcome, {{ ucwords(auth()->user()->name) }}</h5>
+                    </div>
                 </div>
             </div>
+
             <div class="container-fluid px-4">
                 <div class="row mt-4">
                     @foreach ($todos as $todo)
@@ -31,9 +34,7 @@
                                         <span class="badge {{ $todo->completed ? 'badge-success' : 'badge-secondary' }}">
                                             {{ $todo->completed ? 'Completed' : 'Processing' }}
                                         </span>
-                                        <button
-                                            class="btn btn-sm toggle-todo {{ $todo->completed ? 'completed' : 'processing' }}"
-                                            data-todo-id="{{ $todo->id }}">
+                                        <button class="btn btn-sm toggle-todo {{ $todo->completed ? 'completed' : 'processing' }}" data-todo-id="{{ $todo->id }}">
                                             &#10004;
                                         </button>
                                         <a href="{{ route('edit.todo', $todo->id) }}"
@@ -56,47 +57,59 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        async function toggleTodoStatus(todoId) {
+            try {
+                const response = await fetch(`/todos/toggle/${todoId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    updateTodoDOM(todoId, data.completed, data.description);
+                } else {
+                    console.error('Toggle request failed with status:', response.status);
+                }
+            } catch (error) {
+                console.error('Error during toggle:', error);
+            }
+        }
+
+        function updateTodoDOM(todoId, completed, description) {
+            const todoContainer = document.querySelector(`[data-todo-id="${todoId}"]`);
+
+            if (todoContainer) {
+                console.log('Todo container found:', todoContainer);
+
+                const cardText = todoContainer.querySelector('.card-text');
+                const toggleButton = todoContainer.querySelector('.toggle-todo');
+
+                if (cardText && toggleButton) {
+                    console.log('Card elements found:', cardText, toggleButton);
+
+                    toggleButton.classList.toggle('completed', completed);
+                    cardText.innerText = description;
+                } else {
+                    console.error('Card elements not found.');
+                }
+            } else {
+                console.error('Todo container not found.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
             const toggleButtons = document.querySelectorAll('.toggle-todo');
 
             toggleButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const todoId = button.getAttribute('data-todo-id');
-                    toggleTodoStatus(todoId, button); // Pass the button element to the function
+                    toggleTodoStatus(todoId);
                 });
             });
-
-            function toggleTodoStatus(todoId, button) {
-                fetch(`/todos/toggle/${todoId}`, {
-                        method: 'PUT',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        },
-                    })
-                    .then(response => {
-                        if (response.status === 200) {
-                            return response.json();
-                        } else {
-                            // Handle the case where the toggle was not successful
-                            console.error('Toggle was not successful.');
-                        }
-                    })
-                    .then(data => {
-                        const taskDescription = document.querySelector(
-                            `[data-todo-id="${todoId}"] .card-body .card-text`);
-                        const toggleButton = document.querySelector(`[data-todo-id="${todoId}"] .toggle-todo`);
-
-                        if (taskDescription && toggleButton) {
-                            taskDescription.classList.toggle('checked');
-
-                            if (data.completed) {
-                                toggleButton.classList.add('completed');
-                            } else {
-                                toggleButton.classList.remove('completed');
-                            }
-                        }
-                    });
-            }
         });
+
     </script>
 @endsection
