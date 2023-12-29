@@ -69,6 +69,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
 
+    @if(Auth::check())
     <nav class="navbar navbar-expand-lg bg-dark shadow-lg" data-bs-theme="dark">
         <div class="container">
             <a class="navbar-brand" href="#"></a>
@@ -77,15 +78,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    @if(!Auth::check())
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('login')}}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('create.user')}}">Register</a>
-                    </li>
-                    @endif
-                    @if(Auth::check())
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('user.dashboard')}}">User Dashboard</a>
                     </li>
@@ -101,11 +93,11 @@
                             <button type="submit" class="nav-link" style="border: none; background: none;">Logout</button>
                         </form>
                     </li>
-                    @endif
                 </ul>
             </div>
         </div>
     </nav>
+    @endif
     @yield('content')
 
     <script>

@@ -34,33 +34,30 @@ class UserController extends Controller
 
     public function storeTodo(Request $request)
     {
-        // Validation of input data
         $this->validate($request, [
             'header' => 'required',
             'description' => 'required',
             'deadline' => 'date|nullable',
         ]);
 
-        // Create a new todo
         $todo = new Todo;
         $todo->header = $request->input('header');
         $todo->description = $request->input('description');
         $todo->deadline = $request->input('deadline');
-        $todo->user_id = auth()->user()->id; // Assign the currently authenticated user's ID
+        $todo->user_id = auth()->user()->id;
 
         $todo->save();
 
         return redirect('/dashboard')->with('success', 'Todo created successfully.');
     }
 
-    // Add Todo List
     public function todoList()
     {
         if (Auth::check()) {
             $todos = Todo::where('user_id', auth()->user()->id)->get();
             return view('todo.index-todo', compact('todos'));
         } else {
-            return redirect()->route('login'); // Redirect to the login page
+            return redirect()->route('login');
         }
     }
 
@@ -91,7 +88,7 @@ class UserController extends Controller
             'deadline' => $request->input('deadline'),
         ]);
 
-        return redirect()->route('list.todo')->with('success', 'Todo updated successfully.');
+        return redirect()->route('user.dashboard')->with('success', 'Todo updated successfully.');
     }
 
     public function destroyTodo($id)
@@ -101,7 +98,7 @@ class UserController extends Controller
             ->firstOrFail();
 
         $todo->delete();
-        return redirect()->route('list.todo')->with('success', 'Todo deleted successfully.');
+        return redirect()->route('user.dashboard')->with('success', 'Todo deleted successfully.');
     }
 
     public function toggleStatus($id)
