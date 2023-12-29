@@ -39,7 +39,7 @@
         text-decoration: line-through;
     }
 
-    /* Responsive Media Query */
+
     @media (max-width: 767px) {
         #toast-container.toast-bottom-full-width {
             bottom: 0; /* Fixed at the bottom */
@@ -61,11 +61,26 @@
             justify-content: center; /* This centers the cards in the row */
         }
 
-        .row .col-md-8, /* Selector for the header card column */
-        .row .col-md-4 { /* Selector for the todo cards column */
-            flex: 0 0 100%; /* This makes each column take the full width of the row */
-            max-width: 100%; /* Prevents any exceeding of the row's width */
+        .container-fluid.px-4 {
+            padding-left: 15px;
+            padding-right: 15px;
         }
+
+        .row {
+            justify-content: center;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .col-md-4 {
+            padding: 0 15px;
+        }
+
+        .dashboard-container {
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 </style>
 @section('content')
@@ -148,7 +163,6 @@
             toastr.error("{{ Session::get('error') }}");
         @endif
     </script>
-
     <script>
         async function toggleTodoStatus(todoId) {
             try {

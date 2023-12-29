@@ -7,7 +7,7 @@
             <div class="create-body-container">
                 <div class="card">
                     <div class="card-header">
-                        Create Todo
+                        Add Todo
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('store.todo') }}">
@@ -27,7 +27,7 @@
                                 <input type="date" name="deadline" id="deadline" class="form-control">
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-dark">Create</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
                         </form>
                     </div>
                 </div>
