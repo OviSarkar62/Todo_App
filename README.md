@@ -54,8 +54,8 @@ To set up Todo locally, follow these steps:
       DB_HOST=127.0.0.1
       DB_PORT=3306
       DB_DATABASE=<Database Name>
-      DB_USERNAME=<root>
-      DB_PASSWORD=<Pass>
+      DB_USERNAME=<Username>
+      DB_PASSWORD=<Password>
 
 - Update the composer: 
 
