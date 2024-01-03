@@ -8,6 +8,7 @@ The ToDo Application is a simple yet powerful task management tool designed to h
 
 ## Contents
 
+- [Project-View](#Project-View)
 - [Stack](#stack)
 - [Installation](#installation) 
 - [Usage](#usage) 
