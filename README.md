@@ -4,7 +4,7 @@
 
 The ToDo Application is a simple yet powerful task management tool designed to help users to keep track of their to-do items. It provides a user-friendly interface for creating, editing, and managing tasks.
 
-<em> Visit complete live project [Todo_Cards](https://todo-cards.boimelafoundation.com/public/login) </em>
+<em> Visit complete live project [Todo](https://todo-cards.boimelafoundation.com/public/login) </em>
 
 ## Contents
 
