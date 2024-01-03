@@ -13,6 +13,23 @@ The ToDo Application is a simple yet powerful task management tool designed to h
 - [Installation](#installation) 
 - [Usage](#usage) 
 
+## Project-View
+
+- **Register**
+<p align="center">
+  <img alt="img-name" src="public/img-2.png" width="700">
+</p>
+  
+- **Login**
+<p align="center">
+  <img alt="img-name" src="public/img-1.png" width="700">
+</p>
+
+- **Dashboard**
+<p align="center">
+  <img alt="img-name" src="public/img-3.png" width="700">
+</p>
+
 ## Stack
 
 - MySQL - MySQL database for storing data.
